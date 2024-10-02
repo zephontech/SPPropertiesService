@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Custom name="TestCustomObject">
+    <Attributes>
+        <Map>
+            <entry key="userid" value="password"/>
+            <entry key="objectName" value="prodobjects"/>
+        </Map>
+    </Attributes>
+</Custom>

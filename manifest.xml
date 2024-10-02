@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Plugin PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Plugin certificationLevel="None" displayName="SPPropertiesService" minSystemVersion="8.1" name="SPPropertiesService" version="2.2">
+  <Attributes>
+    <Map>
+      <entry key="minUpgradableVersion" value="1.0" />
+      <entry key="restResources">
+        <value>
+          <List>
+            <String>tech.zephon.sailpoint.properties.service.ExternalObjectsService</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="settings">
+       <value>
+         <List>
+           <Setting dataType="int" helpText="The maximum number of objects to search. If there are 1000s or more objects of the type to search, the server could get overloaded" label="Max Objects to Search" name="maxSearchObjectCount" defaultValue="200"/>
+         </List>
+       </value>
+      </entry>
+    </Map>
+  </Attributes>
+</Plugin>
+
