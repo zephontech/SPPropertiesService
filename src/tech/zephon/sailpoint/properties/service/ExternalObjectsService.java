@@ -21,6 +21,7 @@ import sailpoint.object.Application;
 import sailpoint.object.Attributes;
 import sailpoint.object.Custom;
 import sailpoint.object.Identity;
+import sailpoint.object.QueryOptions;
 import sailpoint.rest.plugin.BasePluginResource;
 import sailpoint.rest.plugin.RequiredRight;
 import sailpoint.tools.xml.PersistentArrayList;
@@ -82,6 +83,8 @@ public class ExternalObjectsService extends BasePluginResource
         Custom customObj = null;
         try
         {
+            QueryOptions qo = new QueryOptions();
+            
             customObj = context.getObjectByName(Custom.class, filter);
             if (customObj == null)
             {
@@ -157,54 +160,28 @@ public class ExternalObjectsService extends BasePluginResource
         }
 
         Attributes<String, Object> objects = application.getAttributes();
-        Map appMap = objects.getMap();
-        PersistentHashMap settingsMap = null;
-        Set<String> keys = objects.keySet();
-        for (String key : keys)
-        {
-            //log.error("Key:" + key);
-            //log.error("Value:" + objects.get(key));
-            if ("domainSettings".equals(key))
-            {
-                PersistentArrayList setting = (PersistentArrayList) application.getAttributes().getMap().get("domainSettings");
-                settingsMap = (PersistentHashMap) setting.get(0);
-                //appMap.putAll(settingsMap);
-                break;
-            }
-        }
+        Map<String,Object> appMap = objects.getMap();
+        Map<String,Object> settingsMap = new HashMap();
 
-        keys = settingsMap.keySet();
+        Set<String> keys = appMap.keySet();
         for (String key : keys)
         {
-            //log.error("Key:" + key);
-            //log.error("Value:" + settingsMap.get(key));
             if ("password".equals(key))
             {
                 String dec = context.decrypt((String) appMap.get(key));
-                appMap.put("creds", dec);
+                settingsMap.put("creds", dec);
+                continue;
             }
+            settingsMap.put(key,appMap.get(key));
         }
-        Map respMap = new HashMap();
-        String port = (String)settingsMap.get("port");
-        String pw = (String)settingsMap.get("password");
-        String dec = context.decrypt(pw);
-        List<String> servers = (List<String>)settingsMap.get("servers");
-        if (servers != null | servers.size() > 0)
-        {
-            String server = servers.get(0);
-            respMap.put("host", server);
-        }
-        respMap.put("port",port);
-        respMap.put("useSSL", (Boolean)settingsMap.get("useSSL"));
-        respMap.put("bindDN",(String)settingsMap.get("user"));
-        respMap.put("password", dec);
         
-        log.debug("customMap=" + respMap);
+        
+        log.debug("customMap=" + settingsMap);
         //String json = mapper.writeValueAsString(respMap);
-        String json = jsonHelper.getJson(respMap);
+        String json = jsonHelper.getJson(settingsMap);
         log.error("json:" + json);
         //return json;
-        return respMap;
+        return settingsMap;
 
     }
 

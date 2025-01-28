@@ -33,8 +33,8 @@ public class OAuthClientSOP
     private static final Logger logger = Logger.getLogger(OAuthClientSOP.class);
 
     private static final String TOKENURL = "http://sailpoint.testserver.org:8080/identityiq/oauth2/token";
-    private static final String CLIENTID = "igwVW5akszURWVMQkMXc89gvIVkWqkKT";
-    private static final String CLIENTPW = "OSr89yEmmYl2fkOH";
+    private static final String CLIENTID = "XAOCTryGrSApAzttMBbnkfCekOyLZDES";
+    private static final String CLIENTPW = "LWFTWqtsb7yQ6K2N";
     private static final String APPURL = "http://sailpoint.testserver.org:8080/identityiq/plugin/rest/SPPropertiesService/application?filter=<FILTERVALUE>";
     private static final String CUSTOMOBJURL = "http://sailpoint.testserver.org:8080/identityiq/plugin/rest/SPPropertiesService/customobject?filter=<FILTERVALUE>";
 
@@ -70,12 +70,12 @@ public class OAuthClientSOP
             logger.debug("\n");
             logger.debug("Get application");
             logger.debug("\n");
-            parms = this.getApplication(oauthToken, APPURL, "Active Directory");
+            parms = this.getApplication(oauthToken, APPURL, "Wintel DB Application");
             logger.debug("Parms:" + parms);
             logger.debug("\n");
             logger.debug("Get invalid application");
             logger.debug("\n");
-            parms = this.getApplication(oauthToken, APPURL, "X-Active Directory");
+            parms = this.getApplication(oauthToken, APPURL, "Wintel Application");
             logger.debug("Parms:" + parms);
            
         }
